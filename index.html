@@ -59,6 +59,8 @@
   align-items: center;
   margin: 0.5em;
   cursor: pointer;
+  width: 90px;
+  flex-shrink: 0;
 }
     .tone-option img {
       width: 72px;
@@ -75,7 +77,18 @@
       border-color: var(--accent-color, #000);
       box-shadow: 0 0 6px var(--accent-color, #000);
     }
-  </style>
+      .tone-style-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1em;
+    }
+    .tone-style-buttons .tone-option {
+      width: 90px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
 </head>
 <body>
 
@@ -187,7 +200,7 @@
 <div class="box">
   <h3>話し方スタイル</h3>
   <p class="section-note">口コミの話し方スタイルを選択🗣️</p>
-  <div class="button-row" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1em;">
+  <div class="button-row tone-style-buttons">
     <label class="tone-option">
       <input type="checkbox" name="tone" value="敬語" hidden>
       <img src="teinei.png" alt="敬語">
