@@ -9,71 +9,41 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>口コミアシスタント（完全版）</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="phrases.js"></script>
   <style>
-    :root {
-      --main-color: #333;
-      --accent-color: #000;
-      --bg-color: #f4f4f4;
-      --text-color: #222;
-      --light-bg: #ffffff;
-      --box-bg: #fafafa;
-      --border-color: #ccc;
-      --input-text-color: #222;
-      --box-text-color: #222;
-    }
     body {
       font-family: sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      margin: 0;
-      padding: 2em;
-      box-sizing: border-box;
-    }
-    h2, h3 {
-      text-align: center;
-      color: var(--main-color);
-      margin: 0.5em 0;
+      background: var(--bg-color, #f9f9f9);
+      padding: 1em;
     }
     .box {
-      background: var(--light-bg);
-      padding: 1em;
+      background: var(--light-bg, #fff);
+      border: 1px solid var(--border-color, #ccc);
       border-radius: 12px;
+      padding: 1em;
+      margin: 1.2em auto;
       max-width: 600px;
-      margin: 1.5em auto;
-      border: 1px solid var(--border-color);
-      color: var(--box-text-color);
-      box-sizing: border-box;
+    }
+    .section-note {
+      font-size: 0.9em;
+      color: #666;
+      text-align: center;
+      margin-top: -0.5em;
+    }
+    h3 {
+      text-align: center;
     }
     .form-input {
       width: 100%;
       padding: 0.6em;
       margin: 0.5em 0;
       border-radius: 8px;
-      border: 1px solid var(--border-color);
+      border: 1px solid #ccc;
       font-size: 1rem;
       box-sizing: border-box;
-      background: var(--light-bg);
-      color: var(--input-text-color);
-    }
-    .button {
-      background: var(--main-color);
-      color: white;
-      padding: 0.5em 1em;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      transition: 0.3s ease;
-      font-size: 1rem;
-    }
-    .button:hover {
-      background: var(--accent-color);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     }
     .button-row {
       display: flex;
@@ -82,105 +52,61 @@
       justify-content: center;
       margin-top: 1em;
     }
-    .color-preview {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 2px solid #000;
+    .button {
+      background: var(--main-color, #333);
+      color: white;
+      padding: 0.5em 1em;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
     }
     .tone-option {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      width: 30vw;
-      max-width: 100px;
-    }
-    .tone-option input[type="checkbox"] {
-      display: none;
-    }
-    .tone-option input[type="checkbox"]:checked + img {
-      border-color: var(--accent-color);
-      box-shadow: 0 0 8px var(--accent-color);
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5em;
+  cursor: pointer;
+}
     .tone-option img {
-      width: 80px;
-      height: 80px;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
-      transition: 0.3s ease;
       border: 2px solid transparent;
+      transition: 0.2s ease;
     }
     .tone-option img:hover {
       transform: scale(1.08);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
-    .tone-label {
-      margin-top: 0.25em;
-      font-size: 0.9em;
-      text-align: center;
-      word-break: keep-all;
-    }
-    @media (max-width: 768px) {
-      body {
-        padding: 1em;
-      }
-      .box {
-        margin: 1em auto;
-        padding: 1em;
-      }
-      .form-input {
-        font-size: 0.95rem;
-      }
-      .button {
-        font-size: 0.95rem;
-        padding: 0.4em 0.8em;
-      }
-      .tone-option {
-        width: 28vw;
-        max-width: 90px;
-      }
-      .tone-option img {
-        width: 60px;
-        height: 60px;
-      }
-      .tone-label {
-        font-size: 0.8em;
-      }
+    .tone-option input:checked + img {
+      border-color: var(--accent-color, #000);
+      box-shadow: 0 0 6px var(--accent-color, #000);
     }
   </style>
 </head>
 <body>
-  <div class="box" style="text-align: center;">
-    <h2>あなたのサロンの口コミアシスタント</h2>
-    <img src="Assistant.png" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 1em; object-fit: cover; max-width: 100%;">
-    <div style="
-      background: linear-gradient(145deg, #ffffff, #f0f0f0);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 1.2em 1.5em;
-      max-width: 90vw;
-      margin: 0 auto;
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: var(--text-color);
-      text-align: center;
-      word-break: keep-all;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    ">
-      お客様の声をもっと自然に、もっと素早く。サロンの魅力を引き出す口コミ作成をサポートします。
-    </div>
-    <div class="button-row">
-      <button class="button" id="editButton" onclick="toggleEdit(true)">✏ 編集する</button>
-      <button class="button" id="lockButton" onclick="toggleEdit(false)">🔒 ロックする</button>
-    </div><div class="box">
+
+<div class="box" style="text-align: center;">
+  <h2 style="margin-bottom: 0.5em;">あなたのサロンの口コミアシスタント</h2>
+  <img src="Assistant.png" style="width: 120px; height: auto; border-radius: 16px; margin-bottom: 1em;">
+  <div class="box" style="font-size: 0.95em; color: var(--text-color);">
+    お客様の声をもっと自然に、もっと素早く。<br>サロンの魅力を引き出す口コミ作成をサポートします。
+  </div>
+  <div class="button-row" style="margin-top: 1em;">
+    <button class="button" id="editButton" onclick="toggleEdit(true)">✏ 編集する</button>
+    <button class="button" id="lockButton" onclick="toggleEdit(false)">🔒 ロックする</button>
+  </div>
+</div>
+
+<div class="box">
   <h3>店舗名</h3>
-  <p style="font-size: 0.9em; color: #666; margin-top: -0.5em; text-align: center;">口コミに表示する店舗名を入力してください。</p>
+  <p class="section-note">店舗名を記入🏪</p>
   <input type="text" id="shopName" class="form-input" placeholder="店舗名を入力">
 </div>
+
 <div class="box">
   <h3>スタッフ名</h3>
-  <p style="font-size: 0.9em; color: #666; margin-top: -0.5em; text-align: center;">施術を担当したスタッフのお名前を入力しましょう。</p>
+  <p class="section-note">担当スタッフ名を入力🧑‍🤝‍🧑</p>
   <div id="staff-container">
     <input type="text" class="form-input" placeholder="スタッフ名を入力">
   </div>
@@ -192,331 +118,253 @@
 
 <div class="box">
   <h3>コース名・商品名</h3>
-  <p style="font-size: 0.9em; color: #666; margin-top: -0.5em; text-align: center;">
-    施術内容や商品名を記入できます（例：もみほぐし60分など）。<br>
-    迷ったらプリセットを押してみてね。
-  </p>
+  <p class="section-note">コース名または商品名を入力🛏️</p>
   <div id="course-container">
-    <input type="text" class="form-input" placeholder="コース名または商品名を入力">
+    <input type="text" class="form-input" placeholder="コース名を入力">
   </div>
   <div class="button-row">
     <button class="button" onclick="addCourse()">＋ コースを追加</button>
-    
-    <button class="button" onclick="loadPresetCourses()">💡 プリセット</button>
     <button class="button" onclick="resetCourse()">リセット</button>
   </div>
 </div>
 
 <div class="box">
   <h3>感想ワード</h3>
-  <p style="font-size: 0.9em; color: #666; margin-top: -0.5em; text-align: center;">
-    お客様の感想に使えそうなキーワードを入力しましょう。<br>
-    3個以上6個以下がおすすめです。迷ったらプリセットを押してみてね。
-  </p>
+  <p class="section-note">感想に使うキーワードを入力💬</p>
   <div id="comment-container">
     <input type="text" class="form-input" placeholder="感想ワードを入力">
   </div>
   <div class="button-row">
     <button class="button" onclick="addComment()">＋ 感想を追加</button>
-    
-    <button class="button" onclick="loadPresetComments()">💡 プリセット</button>
     <button class="button" onclick="resetComment()">リセット</button>
   </div>
 </div>
 
 <div class="box">
-  <h3>口コミサイトのリンク</h3>
-  <p style="font-size: 0.9em; color: #666; margin-top: -0.5em; text-align: center;">Googleマップや公式サイトのリンクを貼っておくと便利です。</p>
-  <input type="text" class="form-input" placeholder="Googleマップ（PC／Android 用）">
-  <input type="text" class="form-input" placeholder="Googleマップ（iPhone 用）">
-  <input type="text" class="form-input" placeholder="サロン公式サイトのURL（任意）">
+  <h3>口コミリンク</h3>
+  <p class="section-note">GoogleやHPのリンクを入力🔗</p>
+  <input type="text" class="form-input" placeholder="GoogleマップURLを入力">
 </div>
 
 <div class="box">
   <h3>SNSリンク</h3>
-  <p style="font-size: 0.9em; color: #666; margin-top: -0.5em; text-align: center;">InstagramやXなど、参考になるSNSリンクがあれば追加しましょう。</p>
+  <p class="section-note">SNSのURLを入力🌐</p>
   <div id="sns-container">
     <input type="text" class="form-input" placeholder="SNSリンクを入力">
   </div>
   <div class="button-row">
     <button class="button" onclick="addSNS()">＋ SNSリンクを追加</button>
-    
     <button class="button" onclick="resetSNS()">リセット</button>
   </div>
-<div class="box">
-  <h3>テーマカラーを選択</h3>
-  <p style="font-size: 0.9em; color: #666; margin-top: -0.5em; text-align: center;">画面の雰囲気や印象を変更できます。お好みでどうぞ。</p>
-  <div class="button-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; justify-items: center;">
-  <button class="button" onclick="setColors('#5e35b1', '#311b92', '#ede7f6', '#f3eaff', '#b39ddb')">ラベンダーグレージュ</button>
-  <button class="button" onclick="setColors('#6d4c41', '#3e2723', '#f5f5f5', '#f0e4dc', '#8d6e63')">カカオブラウン</button>
-  <button class="button" onclick="setColors('#388e3c', '#1b5e20', '#f1f8e9', '#e4f2e6', '#66bb6a')">フォレストグリーン</button>
-  <button class="button" onclick="setColors('#1976d2', '#0d47a1', '#e3f2fd', '#d6eafd', '#42a5f5')">ブルーグレー</button>
 </div>
+
+<div class="box">
+  <h3>テーマカラー</h3>
+  <p class="section-note">カラーテーマを選択🎨</p>
   <div class="button-row">
-    <div class="color-preview" id="mainSample" title="main"></div>
-    <div class="color-preview" id="accentSample" title="accent"></div>
-    <div class="color-preview" id="textSample" title="text"></div>
-    <div class="color-preview" id="lightSample" title="light-bg"></div>
-    <div class="color-preview" id="borderSample" title="border"></div>
+    <button class="button" onclick="setColors('#5e35b1', '#311b92', '#ede7f6', '#f3eaff', '#b39ddb')">ラベンダー</button>
+    <button class="button" onclick="setColors('#6d4c41', '#3e2723', '#f5f5f5', '#f0e4dc', '#8d6e63')">ブラウン</button>
+    <button class="button" onclick="setColors('#388e3c', '#1b5e20', '#f1f8e9', '#e4f2e6', '#66bb6a')">グリーン</button>
+    <button class="button" onclick="setColors('#1976d2', '#0d47a1', '#e3f2fd', '#d6eafd', '#42a5f5')">ブルー</button>
   </div>
 </div>
 
 <div class="box">
   <h3>性別スタイル</h3>
-  <p style="font-size: 0.9em; color: #666; margin-top: -0.5em; text-align: center;">口コミ文の語り手をどんな人物像にするか選べます。</p>
+  <p class="section-note">話し手の性別を選択🚻</p>
   <div class="button-row">
     <label class="tone-option">
-      <input type="checkbox" name="tone" value="男性口調">
-      <img src="male.png" alt="男性口調">
-      <div class="tone-label">男性口調</div>
+      <input type="checkbox" name="gender" value="男性" hidden>
+      <img src="male.png" alt="男性">
+      <span>男性</span>
     </label>
     <label class="tone-option">
-      <input type="checkbox" name="tone" value="女性口調">
-      <img src="female.png" alt="女性口調">
-      <div class="tone-label">女性口調</div>
+      <input type="checkbox" name="gender" value="女性" hidden>
+      <img src="female.png" alt="女性">
+      <span>女性</span>
     </label>
     <label class="tone-option">
-      <input type="checkbox" name="tone" value="中性口調">
-      <img src="natural.png" alt="中性口調">
-      <div class="tone-label">中性口調</div>
+      <input type="checkbox" name="gender" value="中性" hidden>
+      <img src="natural.png" alt="中性">
+      <span>中性</span>
     </label>
   </div>
 </div>
 
 <div class="box">
   <h3>話し方スタイル</h3>
-  <p style="font-size: 0.9em; color: #666; margin-top: -0.5em; text-align: center;">敬語・カジュアルなど、文章の雰囲気を選べます。</p>
+  <p class="section-note">口コミの話し方スタイルを選択🗣️</p>
   <div class="button-row">
     <label class="tone-option">
-      <input type="checkbox" name="tone" value="敬語">
+      <input type="checkbox" name="tone" value="敬語" hidden>
       <img src="teinei.png" alt="敬語">
-      <div class="tone-label">敬語</div>
+      <span>敬語</span>
     </label>
     <label class="tone-option">
-      <input type="checkbox" name="tone" value="カジュアル">
+      <input type="checkbox" name="tone" value="カジュアル" hidden>
       <img src="casual.png" alt="カジュアル">
-      <div class="tone-label">カジュアル</div>
+      <span>カジュアル</span>
     </label>
     <label class="tone-option">
-      <input type="checkbox" name="tone" value="フレンドリー">
+      <input type="checkbox" name="tone" value="フレンドリー" hidden>
       <img src="friendly.png" alt="フレンドリー">
-      <div class="tone-label">フレンドリー</div>
+      <span>フレンドリー</span>
     </label>
   </div>
 </div>
 
-
-  
 <div class="box">
   <div class="button-row">
     <button class="button" onclick="saveToLocal()">💾 保存する</button>
     <button class="button" onclick="loadFromLocal()">📂 読み込む</button>
-    <button class="button" onclick="generatePreviewURL()">✨ レビューを生成</button>
-  </div>
+    <button class="button" onclick="generatePreviewURL()">✨ プレビューを生成</button>
   </div>
 </div>
 
 <script>
-function setColors(main, accent, bg, lightBox, borderColor) {
-  const lightText = isLight(bg) ? '#111' : '#eee';
-  const finalLightBox = lightBox || lightenColor(bg, 0.95);
-  const finalBorder = borderColor || lightenColor(bg, 0.7);
-  document.documentElement.style.setProperty('--main-color', main);
-  document.documentElement.style.setProperty('--accent-color', accent);
-  document.documentElement.style.setProperty('--text-color', lightText);
-  document.documentElement.style.setProperty('--bg-color', bg);
-  document.documentElement.style.setProperty('--light-bg', finalLightBox);
-  document.documentElement.style.setProperty('--box-bg', lightenColor(bg, 0.97));
-  document.documentElement.style.setProperty('--border-color', finalBorder);
-  document.documentElement.style.setProperty('--input-text-color', lightText);
-  document.documentElement.style.setProperty('--box-text-color', lightText);
-  updateSampleColors(main, accent, lightText, finalLightBox, finalBorder);
-}
-function lightenColor(hex, percent) {
-  const num = parseInt(hex.replace('#', ''), 16);
-  const r = Math.min(255, Math.floor(((num >> 16) & 255) + (255 - ((num >> 16) & 255)) * percent));
-  const g = Math.min(255, Math.floor(((num >> 8) & 255) + (255 - ((num >> 8) & 255)) * percent));
-  const b = Math.min(255, Math.floor((num & 255) + (255 - (num & 255)) * percent));
-  return `rgb(${r}, ${g}, ${b})`;
-}
-function isLight(color) {
-  const c = color.startsWith('#') ? color.substring(1) : color;
-  const r = parseInt(c.substring(0,2), 16);
-  const g = parseInt(c.substring(2,4), 16);
-  const b = parseInt(c.substring(4,6), 16);
-  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-  return brightness > 180;
-}
-
-function updateSampleColors(main, accent, text, light, border) {
-  document.getElementById('mainSample').style.background = main;
-  document.getElementById('accentSample').style.background = accent;
-  document.getElementById('textSample').style.background = text;
-  document.getElementById('lightSample').style.background = light;
-  document.getElementById('borderSample').style.background = border;
-}
-function addStaff() {
-  const container = document.getElementById('staff-container');
-  const wrapper = document.createElement('div');
-  wrapper.style.position = 'relative';
-  const input = document.createElement('input');
-  input.className = 'form-input';
-  input.placeholder = 'スタッフ名を入力';
-  const removeBtn = document.createElement('button');
-  removeBtn.textContent = '✖';
-  removeBtn.className = 'button';
-  removeBtn.style.position = 'absolute';
-  removeBtn.style.right = '0.5em';
-  removeBtn.style.top = '50%';
-  removeBtn.style.transform = 'translateY(-50%)';
-  removeBtn.style.padding = '0.2em 0.5em';
-  removeBtn.style.fontSize = '0.8em';
-  removeBtn.onclick = () => wrapper.remove();
-  wrapper.appendChild(input);
-  wrapper.appendChild(removeBtn);
-  container.appendChild(wrapper);
-}
-function resetStaff() {
-  const container = document.getElementById('staff-container');
-  container.innerHTML = '<input type="text" class="form-input" placeholder="スタッフ名を入力">';
-}
-function addCourse() {
-  const container = document.getElementById('course-container');
-  const wrapper = document.createElement('div');
-  wrapper.style.position = 'relative';
-  const input = document.createElement('input');
-  input.className = 'form-input';
-  input.placeholder = 'コース名または商品名を入力';
-  const removeBtn = document.createElement('button');
-  removeBtn.textContent = '✖';
-  removeBtn.className = 'button';
-  removeBtn.style.position = 'absolute';
-  removeBtn.style.right = '0.5em';
-  removeBtn.style.top = '50%';
-  removeBtn.style.transform = 'translateY(-50%)';
-  removeBtn.style.padding = '0.2em 0.5em';
-  removeBtn.style.fontSize = '0.8em';
-  removeBtn.onclick = () => wrapper.remove();
-  wrapper.appendChild(input);
-  wrapper.appendChild(removeBtn);
-  container.appendChild(wrapper);
-}
-function loadPresetCourses() {
-  const presets = ['もみほぐしコース', '足つぼ付きコース', 'オイルマッサージコース', '足つぼ単品', 'ヘッド付きコース', '39セット'];
-  const container = document.getElementById('course-container');
-  container.innerHTML = '';
-  presets.forEach(text => {
-    const input = document.createElement('input');
-    input.className = 'form-input';
-    input.placeholder = 'コース名または商品名を入力';
-    input.value = text;
-    container.appendChild(input);
-  });
-}
-function resetCourse() {
-  const container = document.getElementById('course-container');
-  container.innerHTML = '<input type="text" class="form-input" placeholder="コース名または商品名を入力">';
-}
-function addComment() {
-  const container = document.getElementById('comment-container');
-  const wrapper = document.createElement('div');
-  wrapper.style.position = 'relative';
-  const input = document.createElement('input');
-  input.className = 'form-input';
-  input.placeholder = '感想ワードを入力';
-  const removeBtn = document.createElement('button');
-  removeBtn.textContent = '✖';
-  removeBtn.className = 'button';
-  removeBtn.style.position = 'absolute';
-  removeBtn.style.right = '0.5em';
-  removeBtn.style.top = '50%';
-  removeBtn.style.transform = 'translateY(-50%)';
-  removeBtn.style.padding = '0.2em 0.5em';
-  removeBtn.style.fontSize = '0.8em';
-  removeBtn.onclick = () => wrapper.remove();
-  wrapper.appendChild(input);
-  wrapper.appendChild(removeBtn);
-  container.appendChild(wrapper);
-}
-function loadPresetComments() {
-  const presets = ['スッキリしました', '丁寧な接客', '力加減が絶妙', '動きが楽になった', 'リラックスできた', 'また来たい'];
-  const container = document.getElementById('comment-container');
-  container.innerHTML = '';
-  presets.forEach(text => {
-    const input = document.createElement('input');
-    input.className = 'form-input';
-    input.placeholder = '感想ワードを入力';
-    input.value = text;
-    container.appendChild(input);
-  });
-}
-function resetComment() {
-  const container = document.getElementById('comment-container');
-  container.innerHTML = '<input type="text" class="form-input" placeholder="感想ワードを入力">';
-}
-function addSNS() {
-  const container = document.getElementById('sns-container');
-  const wrapper = document.createElement('div');
-  wrapper.style.position = 'relative';
-  const input = document.createElement('input');
-  input.className = 'form-input';
-  input.placeholder = 'SNSリンクを入力';
-  const removeBtn = document.createElement('button');
-  removeBtn.textContent = '✖';
-  removeBtn.className = 'button';
-  removeBtn.style.position = 'absolute';
-  removeBtn.style.right = '0.5em';
-  removeBtn.style.top = '50%';
-  removeBtn.style.transform = 'translateY(-50%)';
-  removeBtn.onclick = () => wrapper.remove();
-  wrapper.appendChild(input);
-  wrapper.appendChild(removeBtn);
-  container.appendChild(wrapper);
-}
-function resetSNS() {
-  const container = document.getElementById('sns-container');
-  container.innerHTML = '<input type="text" class="form-input" placeholder="SNSリンクを入力">';
-}
-let isLocked = false;
 function toggleEdit(state) {
-  isLocked = !state;
-  const inputs = document.querySelectorAll('.form-input, input[type="checkbox"]');
-  inputs.forEach(input => input.disabled = !state);
+  const isLocked = !state;
+  const inputs = document.querySelectorAll('.form-input, input[type="radio"]');
+  inputs.forEach(input => input.disabled = isLocked);
 
   const buttons = document.querySelectorAll('.button-row button');
   buttons.forEach(btn => {
     if (!btn.id || (btn.id !== 'editButton' && btn.id !== 'lockButton')) {
-      if (btn.textContent.includes('保存') || btn.textContent.includes('読み込む') || btn.textContent.includes('レビュー')) return;
-      btn.disabled = !state;
-      btn.style.opacity = state ? '1' : '0.5';
+      btn.disabled = isLocked;
+      btn.style.opacity = isLocked ? '0.5' : '1';
     }
   });
 
   const editBtn = document.getElementById('editButton');
   const lockBtn = document.getElementById('lockButton');
   if (state) {
-    editBtn.style.background = '#888';
-    lockBtn.style.background = 'var(--accent-color)';
-  } else {
-    lockBtn.style.background = '#888';
     editBtn.style.background = 'var(--accent-color)';
+    editBtn.style.color = '#fff';
+    lockBtn.style.background = '#ccc';
+    lockBtn.style.color = '#000';
+  } else {
+    lockBtn.style.background = 'var(--accent-color)';
+    lockBtn.style.color = '#fff';
+    editBtn.style.background = '#ccc';
+    editBtn.style.color = '#000';
   }
   editBtn.disabled = state;
   lockBtn.disabled = !state;
 }
+
+function setColors(main, accent, bg, light, border) {
+  document.documentElement.style.setProperty('--main-color', main);
+  document.documentElement.style.setProperty('--accent-color', accent);
+  document.documentElement.style.setProperty('--bg-color', bg);
+  document.documentElement.style.setProperty('--light-bg', light);
+  document.documentElement.style.setProperty('--border-color', border);
+}
+
+function addStaff() {
+  const c = document.getElementById('staff-container');
+  const i = document.createElement('input');
+  i.className = 'form-input';
+  i.placeholder = 'スタッフ名を入力';
+  c.appendChild(i);
+}
+function resetStaff() {
+  const c = document.getElementById('staff-container');
+  c.innerHTML = '<input type="text" class="form-input" placeholder="スタッフ名を入力">';
+}
+function addCourse() {
+  const c = document.getElementById('course-container');
+  const i = document.createElement('input');
+  i.className = 'form-input';
+  i.placeholder = 'コース名を入力';
+  c.appendChild(i);
+}
+function resetCourse() {
+  const c = document.getElementById('course-container');
+  c.innerHTML = '<input type="text" class="form-input" placeholder="コース名を入力">';
+}
+function addComment() {
+  const c = document.getElementById('comment-container');
+  const i = document.createElement('input');
+  i.className = 'form-input';
+  i.placeholder = '感想ワードを入力';
+  c.appendChild(i);
+}
+function resetComment() {
+  const c = document.getElementById('comment-container');
+  c.innerHTML = '<input type="text" class="form-input" placeholder="感想ワードを入力">';
+}
+function addSNS() {
+  const c = document.getElementById('sns-container');
+  const i = document.createElement('input');
+  i.className = 'form-input';
+  i.placeholder = 'SNSリンクを入力';
+  c.appendChild(i);
+}
+function resetSNS() {
+  const c = document.getElementById('sns-container');
+  c.innerHTML = '<input type="text" class="form-input" placeholder="SNSリンクを入力">';
+}
+function saveToLocal() {
+  const data = {
+    shopName: document.getElementById('shopName').value,
+    staff: Array.from(document.querySelectorAll('#staff-container input')).map(e => e.value),
+    courses: Array.from(document.querySelectorAll('#course-container input')).map(e => e.value),
+    comments: Array.from(document.querySelectorAll('#comment-container input')).map(e => e.value),
+    sns: Array.from(document.querySelectorAll('#sns-container input')).map(e => e.value),
+    tone: Array.from(document.querySelectorAll('input[name="tone"]:checked')).map(e => e.value),
+    gender: Array.from(document.querySelectorAll('input[name="gender"]:checked')).map(e => e.value)
+  };
+  localStorage.setItem('reviewForm', JSON.stringify(data));
+  alert('保存しました');
+}
+function loadFromLocal() {
+  const data = JSON.parse(localStorage.getItem('reviewForm') || '{}');
+  document.getElementById('shopName').value = data.shopName || '';
+  function loadInputs(containerId, values) {
+    const c = document.getElementById(containerId);
+    c.innerHTML = '';
+    (values || ['']).forEach(v => {
+      const i = document.createElement('input');
+      i.className = 'form-input';
+      i.value = v;
+      c.appendChild(i);
+    });
+  }
+  loadInputs('staff-container', data.staff);
+  loadInputs('course-container', data.courses);
+  loadInputs('comment-container', data.comments);
+  loadInputs('sns-container', data.sns);
+  if (data.tone && Array.isArray(data.tone)) {
+  data.tone.forEach(val => {
+    const t = document.querySelector(`input[name="tone"][value="${val}"]`);
+    if (t) t.checked = true;
+  });
+}
+
+if (data.gender && Array.isArray(data.gender)) {
+  data.gender.forEach(val => {
+    const g = document.querySelector(`input[name="gender"][value="${val}"]`);
+    if (g) g.checked = true;
+  });
+}
+  alert('読み込みました');
+}
 function generatePreviewURL() {
   const data = {
     shopName: document.getElementById('shopName').value,
-    staffs: Array.from(document.querySelectorAll('#staff-container input')).map(e => e.value).filter(Boolean),
-    courses: Array.from(document.querySelectorAll('#course-container input')).map(e => e.value).filter(Boolean),
-    comments: Array.from(document.querySelectorAll('#comment-container input')).map(e => e.value).filter(Boolean),
-    sns: Array.from(document.querySelectorAll('#sns-container input')).map(e => e.value).filter(Boolean),
-    tones: Array.from(document.querySelectorAll('input[name="tone"]:checked')).map(e => e.value)
+    staff: Array.from(document.querySelectorAll('#staff-container input')).map(e => e.value),
+    courses: Array.from(document.querySelectorAll('#course-container input')).map(e => e.value),
+    comments: Array.from(document.querySelectorAll('#comment-container input')).map(e => e.value),
+    sns: Array.from(document.querySelectorAll('#sns-container input')).map(e => e.value),
+   tone: Array.from(document.querySelectorAll('input[name="tone"]:checked')).map(e => e.value),
+gender: Array.from(document.querySelectorAll('input[name="gender"]:checked')).map(e => e.value)
+
   };
   const encoded = btoa(encodeURIComponent(JSON.stringify(data)));
   const url = `review.html?data=${encoded}`;
   window.open(url, '_blank');
 }
 </script>
+
 </body>
 </html>
